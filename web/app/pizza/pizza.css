@@ -1,0 +1,140 @@
+/* Shared Anam website colors and typography. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.pizza-site {
+  --pizza-ink: #000;
+  --pizza-muted: rgba(0, 0, 0, .6);
+  --pizza-surface: #f5f5f5;
+  --pizza-hover: rgb(232, 230, 230);
+  --pizza-orange: #ff6200;
+  --pizza-line: rgba(0, 0, 0, .1);
+  --primary: #000;
+  --foreground: #000;
+  --ring: #000;
+  --input: rgba(0, 0, 0, .15);
+  --secondary: #f5f5f5;
+  --secondary-foreground: #000;
+  min-height: 100svh;
+  background: #fff;
+  color: var(--pizza-ink);
+  font-family: Inter, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  padding: 0 32px;
+}
+.pizza-site h1, .pizza-site h2, .pizza-site h3, .pizza-site p { margin: 0; }
+.pizza-site a { color: inherit; text-decoration: none; }
+.pizza-header, .pizza-intro, .pizza-workspace, .pizza-footer { max-width: 1280px; margin-inline: auto; }
+.pizza-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--pizza-line); }
+.pizza-brand { display: flex; align-items: center; gap: 16px; font-size: .9375rem; font-weight: 500; white-space: nowrap; }
+.pizza-brand-name { font-size: 1.25rem; font-weight: 600; }
+.pizza-brand-divider { width: 1px; height: 20px; background: var(--pizza-line); }
+.pizza-intro { padding: 40px 0 32px; display: flex; align-items: end; justify-content: space-between; gap: 32px; }
+.pizza-intro h1 { font-size: 2.5rem; font-weight: 500; letter-spacing: -.02em; line-height: 1.1; max-width: 680px; text-wrap: balance; }
+.pizza-intro > p { color: var(--pizza-muted); font-size: .9375rem; line-height: 1.4; letter-spacing: -.02em; max-width: 390px; }
+.pizza-workspace { display: grid; grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr); gap: 24px; align-items: start; }
+.pizza-counter, .pizza-builder { min-width: 0; }
+.pizza-counter { border-radius: 32px; background: var(--pizza-surface); overflow: hidden; }
+.pizza-panel-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 24px 24px 20px; }
+.pizza-panel-heading h2 { font-weight: 500; font-size: 1.125rem; letter-spacing: -.02em; }
+.pizza-panel-heading > span { color: var(--pizza-muted); font-size: .875rem; }
+.pizza-avatar-frame { aspect-ratio: 3 / 2; position: relative; background: #fff; overflow: hidden; margin: 0 16px; border-radius: 24px; }
+.pizza-avatar-video, .pizza-avatar-placeholder { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pizza-avatar-video { object-fit: contain; opacity: 0; }
+.pizza-avatar-video.is-visible { opacity: 1; }
+.pizza-avatar-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 24px; text-align: center; color: var(--pizza-muted); background: var(--pizza-surface); }
+.pizza-avatar-placeholder span { color: #222; font-weight: 500; }
+.pizza-avatar-placeholder p { margin: 0; font-size: .875rem; }
+.pizza-avatar-placeholder.is-hidden { opacity: 0; }
+.pizza-call-area { padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.pizza-call-status { font-size: .9375rem; font-weight: 500; text-align: center; }
+.pizza-site .anam-pill { border: 0; border-radius: 50px; height: auto; min-height: 50px; padding: 16px 24px; font: 500 .9375rem/1.2 Inter, Arial, sans-serif; gap: 10px; background: var(--pizza-surface); color: #000; box-shadow: none; transition: background .2s; white-space: normal; }
+.pizza-site .anam-pill:hover { background: var(--pizza-hover); }
+.pizza-site .anam-pill:disabled { cursor: default; opacity: .5; }
+.pizza-site button:focus-visible, .pizza-site a:focus-visible { outline: 2px solid #000; outline-offset: 4px; }
+/* Call controls copied from anam-tool-pages' LiveKit tool (belo-horizonte workspace). */
+.pizza-start-call { white-space: nowrap; display: inline-flex; height: 34px; min-height: 34px; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; border: 0; border-radius: 50px; background: var(--pizza-orange); color: #fff; cursor: pointer; font: 500 15px/18px Inter, Arial, sans-serif; transition: color 200ms ease, opacity 200ms ease; }
+.pizza-start-call:hover { color: rgba(255, 255, 255, .85); }
+.pizza-start-call:disabled { cursor: wait; opacity: .75; }
+.pizza-call-buttons { display: flex; flex: 0 0 auto; gap: 8px; }
+.pizza-call-control { display: grid; width: 42px; height: 42px; flex: 0 0 auto; place-items: center; border: 0; border-radius: 50%; background: rgba(0, 0, 0, .08); color: #000; cursor: pointer; backdrop-filter: blur(8px); }
+.pizza-call-control:hover { background: rgba(0, 0, 0, .14); }
+.pizza-call-control:disabled { cursor: default; opacity: .5; }
+.pizza-end-call { display: inline-flex; width: auto; align-items: center; gap: 10px; padding: 0 18px; border-radius: 50px; font: 500 15px/18px Inter, Arial, sans-serif; }
+.pizza-small { font-size: .875rem; color: var(--pizza-muted); }
+.pizza-call-error { font-size: .9375rem; padding: 16px; background: #fff; border-left: 2px solid #000; width: 100%; }
+.pizza-conversation-hint { margin: 0 24px; padding: 24px 0 32px; border-top: 1px solid var(--pizza-line); }
+.pizza-conversation-hint p { color: var(--pizza-muted); font-size: .875rem; }
+.pizza-conversation-hint blockquote { font-size: 1.25rem; line-height: 1.4; letter-spacing: -.02em; margin: 12px 0; font-weight: 500; }
+.pizza-builder > .pizza-panel-heading { padding: 24px 0 20px; }
+.pizza-preview { position: relative; background: var(--pizza-surface); border-radius: 32px; overflow: hidden; }
+.pizza-canvas { height: 360px; width: 100%; }
+.pizza-canvas canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.pizza-canvas canvas:active { cursor: grabbing; }
+.pizza-preview-controls { display: flex; justify-content: space-between; align-items: center; gap: 16px; color: var(--pizza-muted); padding: 0 24px 20px; font-size: .875rem; }
+.pizza-preview-controls button { font: inherit; color: #000; background: transparent; border: 0; padding: 8px 0; text-decoration: underline; text-underline-offset: 4px; }
+.pizza-preview-message { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 32px; font-size: 1rem; background: var(--pizza-surface); }
+.pizza-menu { padding-top: 24px; }
+.pizza-voice-note { font-size: .9375rem; color: var(--pizza-muted); padding-bottom: 20px; }
+.pizza-menu-label { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 16px; }
+.pizza-menu-label h3 { display: flex; gap: 12px; font-size: .875rem; color: var(--pizza-muted); font-weight: 500; }
+.pizza-menu-label h3 span { font-size: 1rem; color: #000; }
+.pizza-menu-label > span { color: var(--pizza-muted); font-size: .875rem; }
+.pizza-recipes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; list-style: none; padding: 0; margin: 0; }
+.pizza-recipe { display: flex; flex-direction: column; gap: 4px; border: 1px solid var(--pizza-line); border-radius: 16px; padding: 16px; }
+.pizza-recipe.is-selected { border-color: #000; }
+.pizza-recipe strong { font-size: 1rem; font-weight: 500; }
+.pizza-recipe p { font-size: .875rem; color: var(--pizza-muted); }
+.pizza-selection-note { font-size: .75rem; color: var(--pizza-muted); }
+.pizza-topping-heading { margin-top: 24px; }
+.pizza-toppings { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; list-style: none; padding: 0; margin: 0; }
+.pizza-topping { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 76px; padding: 16px 8px; border: 1px solid var(--pizza-line); border-radius: 16px; text-align: center; font-size: .875rem; }
+.pizza-topping.is-selected { background: var(--pizza-surface); border-color: #000; }
+.pizza-order-summary { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--pizza-line); display: flex; align-items: center; gap: 24px; justify-content: space-between; }
+.pizza-order-summary > div { flex: 1; min-width: 0; }
+.pizza-order-summary h3 { font-size: 1.25rem; font-weight: 500; margin: 4px 0; }
+.pizza-order-summary p { font-size: .875rem; color: var(--pizza-muted); line-height: 1.5; }
+.pizza-order-summary .pizza-confirm-hint { max-width: 190px; color: #000; }
+.pizza-order-notice { font-size: .875rem; color: var(--pizza-muted); padding-top: 16px; min-height: 56px; }
+.pizza-footer { border-top: 1px solid var(--pizza-line); display: flex; justify-content: space-between; gap: 24px; padding: 24px 0; margin-top: 40px; font-size: .875rem; color: var(--pizza-muted); }
+.pizza-footer a { color: #000; text-decoration: underline; text-underline-offset: 4px; }
+.pizza-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (min-width: 810px) and (max-width: 999.98px) {
+  .pizza-site { padding-inline: 24px; }
+  .pizza-intro { align-items: start; flex-direction: column; gap: 16px; }
+  .pizza-workspace { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 20px; }
+  .pizza-toppings { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pizza-menu-label { align-items: start; flex-direction: column; gap: 8px; }
+  .pizza-recipes { grid-template-columns: 1fr; }
+  .pizza-canvas { height: 300px; }
+  .pizza-order-summary { align-items: start; flex-direction: column; gap: 16px; }
+}
+@media (max-width: 809.98px) {
+  .pizza-site { padding-inline: 20px; }
+  .pizza-header { flex-wrap: wrap; gap: 16px; padding: 20px 0; }
+  .pizza-intro { padding: 32px 0 24px; flex-direction: column; align-items: start; gap: 16px; }
+  .pizza-intro h1 { font-size: 2.5rem; }
+  .pizza-desktop-break { display: none; }
+  .pizza-workspace { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .pizza-counter { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+  .pizza-counter > .pizza-panel-heading { grid-column: 1 / -1; padding: 20px; }
+  .pizza-avatar-frame { margin: 0 0 20px 16px; aspect-ratio: 3 / 2; align-self: center; }
+  .pizza-call-area { padding: 0 16px 20px; gap: 10px; align-self: center; }
+  .pizza-start-call { padding-inline: 12px; }
+  .pizza-call-buttons { flex-wrap: wrap; justify-content: center; }
+  .pizza-call-area .anam-pill { min-height: 44px; padding: 12px 16px; width: 100%; }
+  .pizza-call-status { font-size: .875rem; }
+  .pizza-conversation-hint { grid-column: 1 / -1; margin: 0 20px; padding: 16px 0 20px; }
+  .pizza-conversation-hint blockquote { font-size: 1rem; margin: 8px 0; }
+  .pizza-conversation-hint blockquote br { display: none; }
+  .pizza-builder > .pizza-panel-heading { padding-top: 0; }
+  .pizza-canvas { height: 300px; }
+  .pizza-preview-controls { padding: 0 20px 16px; }
+  .pizza-menu-label { flex-wrap: wrap; gap: 8px; }
+  .pizza-toppings { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pizza-recipes { gap: 8px; }
+  .pizza-recipe { padding: 12px; gap: 8px; align-items: start; }
+  .pizza-order-summary { flex-direction: column; align-items: stretch; gap: 16px; }
+  .pizza-footer { flex-direction: column; gap: 12px; margin-top: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .pizza-site *, .pizza-site *::before, .pizza-site *::after { transition: none !important; } }

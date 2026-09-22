@@ -1,0 +1,27 @@
+# Credentials and machine-local configuration
+.env*
+!.env.example
+*.pem
+*.key
+/agent/livekit.toml
+/agent/livekit.local.toml
+
+# Dependencies and build output
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+.next/
+dist/
+*.tsbuildinfo
+/web-node/
+
+# Local tools and diagnostic artifacts
+.context/
+.conductor/
+.agents/
+.codex/
+.vercel/
+/work/
+/outputs/
+.DS_Store

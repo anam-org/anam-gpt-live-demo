@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../vendor/shadcn-tailwind-4.13.0.css";
+
+:root {
+  --background: #fafafa;
+  --foreground: #171717;
+  --primary: #ff6200;
+  --primary-foreground: #fff;
+  --ring: #ff6200;
+  --border: #e5e5e5;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --radius: .8rem;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-sans); }
+button { cursor: pointer; }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
+button:disabled { cursor: wait; }
+.demo { width: 100%; max-width: min(1216px, calc(150svh - 236px)); margin: 0 auto; padding: 28px 32px 32px; }
+.topbar { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.topbar img { display: block; width: 60px; height: 22px; }
+.brand-separator { color: #777; font-size: 20px; line-height: 1; }
+.brand-model { font-size: 22px; font-weight: 600; line-height: 22px; white-space: nowrap; }
+.workspace { display: flex; flex-direction: column; gap: 20px; }
+.stage { position: relative; overflow: hidden; border-radius: 24px; background: #fff; width: 100%; aspect-ratio: 3 / 2; }
+.avatar-video { position: absolute; width: 100%; height: 100%; padding: 6% 0 0; object-fit: contain; object-position: 50% 100%; inset: 0; }
+.hidden-poster, .avatar-video { opacity: 0; }
+.avatar-video.visible { opacity: 1; }
+.conversation { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.controls { width: 100%; max-width: 420px; }
+.controls button { border-radius: 50px; height: 50px; font-size: 15px; gap: 10px; font-weight: 500; }
+.controls .start-button { width: 100%; background: var(--primary); color: #171717; }
+.controls .start-button:hover { background: #f65e00; }
+.call-controls { display: flex; gap: 10px; }
+.controls .mic-button { background: #f0f0f0; border: 1px solid #dedede; color: #171717; flex: 1; }
+.controls .end-button { background: #171717; color: #fff; flex: 1.6; }
+.controls .sound-button { width: 100%; margin-bottom: 10px; background: #fff; border: 1px solid #dedede; }
+.error { padding: 12px; background: #ffe9e2; color: #8d260b; border-radius: 8px; font-size: 14px; line-height: 1.5; margin: 0 0 14px; }
+.audio-tracks { display: none; }
+.pizza-demo-link { margin-top: 20px; font-size: 15px; color: #171717; text-underline-offset: 4px; text-decoration: underline; }
+@media (max-width: 680px) {
+  .demo { padding: 20px 16px 24px; }
+  .topbar { margin-bottom: 20px; }
+  .workspace { gap: 16px; }
+  .stage { border-radius: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
+
+.brand-name { font-size: 1.25rem; font-weight: 600; }
+.avatar-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 24px; text-align: center; color: #666; }
+.avatar-placeholder span { color: #222; font-weight: 500; }
+.avatar-placeholder p { margin: 0; font-size: .875rem; }

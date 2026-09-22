@@ -1,0 +1,6 @@
+# Optional Cloud deployment config. Copy to livekit.toml and use your own IDs.
+[project]
+subdomain = "your-project"
+
+[agent]
+id = "your-agent-id"
