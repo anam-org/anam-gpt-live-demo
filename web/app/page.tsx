@@ -7,6 +7,7 @@ import { Mic, MicOff, PhoneOff, Volume2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 type Phase = 'idle' | 'connecting' | 'connected';
+const POSTER = '/hana-landscape.png';
 
 export default function Home() {
   const [phase, setPhase] = useState<Phase>('idle');
@@ -132,7 +133,7 @@ export default function Home() {
       </header>
       <div className="workspace">
         <section className="stage" aria-label="Hana video">
-          <div className={`avatar-placeholder ${hasVideo ? 'hidden-poster' : ''}`} aria-hidden={hasVideo}><span>Your avatar will appear here</span><p>Start a conversation to meet Hana.</p></div>
+          <img className={`poster ${hasVideo ? 'hidden-poster' : ''}`} src={POSTER} width={1152} height={768} alt="Hana, wearing an orange sweater" />
           <video ref={video} width={1152} height={768} autoPlay playsInline muted className={hasVideo ? 'avatar-video visible' : 'avatar-video'} />
         </section>
         <aside className="conversation">

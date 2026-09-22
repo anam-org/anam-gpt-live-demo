@@ -39,13 +39,11 @@
 .pizza-panel-heading h2 { font-weight: 500; font-size: 1.125rem; letter-spacing: -.02em; }
 .pizza-panel-heading > span { color: var(--pizza-muted); font-size: .875rem; }
 .pizza-avatar-frame { aspect-ratio: 3 / 2; position: relative; background: #fff; overflow: hidden; margin: 0 16px; border-radius: 24px; }
-.pizza-avatar-video, .pizza-avatar-placeholder { position: absolute; inset: 0; width: 100%; height: 100%; }
-.pizza-avatar-video { object-fit: contain; opacity: 0; }
-.pizza-avatar-video.is-visible { opacity: 1; }
-.pizza-avatar-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 24px; text-align: center; color: var(--pizza-muted); background: var(--pizza-surface); }
-.pizza-avatar-placeholder span { color: #222; font-weight: 500; }
-.pizza-avatar-placeholder p { margin: 0; font-size: .875rem; }
-.pizza-avatar-placeholder.is-hidden { opacity: 0; }
+.pizza-avatar-frame:focus-visible { outline: 2px solid #000; outline-offset: 4px; }
+.pizza-avatar-poster, .pizza-avatar-video, .pizza-avatar-preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.pizza-avatar-poster { transition: opacity .2s; }
+.pizza-avatar-poster.is-hidden, .pizza-avatar-video, .pizza-avatar-preview { opacity: 0; }
+.pizza-avatar-video.is-visible, .pizza-avatar-preview.is-visible { opacity: 1; }
 .pizza-call-area { padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .pizza-call-status { font-size: .9375rem; font-weight: 500; text-align: center; }
 .pizza-site .anam-pill { border: 0; border-radius: 50px; height: auto; min-height: 50px; padding: 16px 24px; font: 500 .9375rem/1.2 Inter, Arial, sans-serif; gap: 10px; background: var(--pizza-surface); color: #000; box-shadow: none; transition: background .2s; white-space: normal; }
