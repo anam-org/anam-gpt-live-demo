@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import confetti from '@hiseb/confetti';
 import { PhoneIcon } from '@phosphor-icons/react';
 import { Mic, MicOff, PhoneOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,13 +9,32 @@ import { PizzaScene } from './pizza-scene';
 import { usePizzaCall } from '@/hooks/use-pizza-call';
 import { applyPizzaCommand, describeOrder, initialOrder, PIZZAS, pizzaName, TOPPINGS } from '@/lib/pizza';
 
+const CONFETTI_COLORS = ['#ff6200', '#d62828', '#ffc93c', '#3a9d23'];
+
+/** Celebrates a newly confirmed demo order with a few bursts over the pizza preview. */
+function celebrate(builder: HTMLElement | null) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const rect = (builder?.querySelector('.pizza-preview') ?? builder)?.getBoundingClientRect();
+  const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
+  const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 3;
+  const spread = rect ? rect.width / 4 : window.innerWidth / 4;
+  [{ x, y }, { x: x - spread, y: y - spread / 2 }, { x: x + spread, y: y - spread / 2 }]
+    .forEach((position, i) => window.setTimeout(() => confetti({ position, count: 120, color: CONFETTI_COLORS }), i * 250));
+}
+
 export function PizzaDemo() {
   const [order, setOrder] = useState(initialOrder);
   const orderRef = useRef(order);
+  const builderRef = useRef<HTMLElement>(null);
+  const preview = useRef<HTMLVideoElement>(null);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [previewPlaying, setPreviewPlaying] = useState(false);
   const [notice, setNotice] = useState('Tell the avatar what you’d like on your pizza.');
   const execute = useCallback((input: unknown) => {
     const result = applyPizzaCommand(orderRef.current, input);
     if (result.ok && result.order !== orderRef.current) {
+      if (result.order.status === 'confirmed' && orderRef.current.status !== 'confirmed') celebrate(builderRef.current);
       orderRef.current = result.order;
       setOrder(result.order);
       setNotice(result.order.status === 'confirmed' ? 'Demo order confirmed. The pizza is virtual. The attitude is included.' : 'Your pizza has been updated.');
@@ -23,6 +43,17 @@ export function PizzaDemo() {
   }, []);
   const { phase, syncOrder, muted, hasVideo, video, audio, error, needsAudio, enableAudio, start, toggleMic, stop } = usePizzaCall(execute);
   useEffect(() => { if (phase === 'connected') syncOrder(order); }, [order, phase, syncOrder]);
+  const showPreview = phase === 'idle' && !hasVideo && (hovered || focused);
+  useEffect(() => {
+    const element = preview.current;
+    if (!element || !showPreview) return;
+    void element.play().catch(() => undefined);
+    return () => {
+      element.pause();
+      element.currentTime = 0;
+    };
+  }, [showPreview]);
+
   const status = phase === 'idle' ? '' : phase === 'connecting' ? 'Connecting…' : phase === 'reconnecting' ? 'Reconnecting…' : muted ? 'Your microphone is muted' : 'Listening…';
 
   return <main className="pizza-site">
@@ -38,11 +69,30 @@ export function PizzaDemo() {
     <div className="pizza-workspace">
       <section className="pizza-counter" aria-labelledby="counter-title">
         <div className="pizza-panel-heading"><h2 id="counter-title">Anam Pizza Counter</h2><span>AI avatar</span></div>
-        <div className="pizza-avatar-frame" role="group" aria-label="Pizza avatar">
-          <div className={hasVideo ? 'pizza-avatar-placeholder is-hidden' : 'pizza-avatar-placeholder'} aria-hidden={hasVideo}>
-            <span>Your avatar will appear here</span>
-            <p>Start a call to place a demo order.</p>
-          </div>
+        <div
+          className="pizza-avatar-frame"
+          tabIndex={phase === 'idle' ? 0 : -1}
+          role="group"
+          aria-label="Pizza avatar. Hover or focus to preview."
+          onPointerEnter={event => { if (event.pointerType !== 'touch') setHovered(true); }}
+          onPointerLeave={() => setHovered(false)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+        >
+          <img src="/pizza-avatar.png" width="366" height="244" alt="Anam Pizza employee wearing a headset and cap" aria-hidden={hasVideo} className={hasVideo ? 'pizza-avatar-poster is-hidden' : 'pizza-avatar-poster'} />
+          <video
+            ref={preview}
+            src="/pizza-avatar-preview.mp4"
+            preload="none"
+            playsInline
+            muted
+            loop
+            className={showPreview && previewPlaying ? 'pizza-avatar-preview is-visible' : 'pizza-avatar-preview'}
+            aria-hidden="true"
+            onPlaying={() => setPreviewPlaying(true)}
+            onPause={() => setPreviewPlaying(false)}
+            onError={() => setPreviewPlaying(false)}
+          />
           <video ref={video} width="1152" height="768" autoPlay playsInline muted className={hasVideo ? 'pizza-avatar-video is-visible' : 'pizza-avatar-video'} aria-hidden={!hasVideo} aria-label="Live pizza character" />
         </div>
         <div className="pizza-call-area">
@@ -76,7 +126,7 @@ export function PizzaDemo() {
         <div className="pizza-conversation-hint"><p>Give it a try</p><blockquote>“Pepperoni with mushrooms.<br /> Actually, add pineapple. Don’t judge me.”</blockquote></div>
       </section>
 
-      <section className="pizza-builder" aria-labelledby="builder-title">
+      <section ref={builderRef} className="pizza-builder" aria-labelledby="builder-title">
         <div className="pizza-panel-heading"><h2 id="builder-title">Your masterpiece</h2><span>{order.status === 'confirmed' ? 'Demo order confirmed' : 'Made your way'}</span></div>
         <PizzaScene pizzaType={order.pizzaType} toppings={order.toppings} />
         <div className="pizza-menu">
